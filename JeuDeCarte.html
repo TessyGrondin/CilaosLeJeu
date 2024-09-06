@@ -80,22 +80,17 @@ function drawSplit(str, posx, posy, height) {
     context.fillText(toWrite[i], posx, posy + i * height);
 }
 
-function drawCard(c, posx, posy, scalex, scaley)
+function drawCard(c, posx, posy, scalex, scaley, tsize)
 {
-  let size = 0;
   context.drawImage(card, card.width / 7, 0, card.width / 7, card.height, posx, posy, scalex, scaley);
   context.drawImage(card, card.width / 7 * (c.type + 2), 0, card.width / 7, card.height, posx, posy, scalex, scaley);
-  if (scalex == (card.width / 7) / 3)
-    size = 15;
-  else
-    size = 5;
-  context.font = size + "px Arial";
+  context.font = tsize + "px Arial";
   context.fillStyle = 'white';
   context.textAlign = "left";
   context.fillText(c.pt, posx + scalex * 0.9, posy + scaley * 0.07);
   context.fillStyle = 'black';
   context.textAlign = "center";
-  drawSplit(c.name, posx + scalex * 0.5, posy + scaley * 0.05, size);
+  drawSplit(c.name, posx + scalex * 0.5, posy + scaley * 0.05, tsize);
 }
 
 function pickCard(j) {
@@ -178,11 +173,11 @@ function loop() {
       if (phase == 0)
         context.drawImage(card, 0, 0, card.width / 7, card.height, canvas.width / 2 - ((card.width / 7) / 3) / 2, canvas.height / 2 - ((card.height) / 3) / 2, (card.width / 7) / 3, (card.height) / 3);
       if (phase == 1)
-        drawCard(player.hand[player.hand.length - 1], canvas.width / 2 - ((card.width / 7) / 3) / 2, yPick, (card.width / 7) / 3, card.height / 3);
+        drawCard(player.hand[player.hand.length - 1], canvas.width / 2 - ((card.width / 7) / 3) / 2, yPick, (card.width / 7) / 3, card.height / 3, 15);
       if (phase == 2) {
         let cx = 0;
         player.hand.forEach(function(c) {
-          drawCard(c, cx, 200, canvas.width /10, card.height / 7.5)
+          drawCard(c, cx, 200, canvas.width /10, card.height / 7.5, 7)
           cx += canvas.width / 10;
         });
       }
