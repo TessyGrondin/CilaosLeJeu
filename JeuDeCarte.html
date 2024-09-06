@@ -61,7 +61,7 @@ let cards = [
 let player = {pt:0, hand:[], board:[]};
 let opponent = {pt:0, hand:[], board:[]};
 
-let highlight = 8;
+let highlight = -1;
 let crossFrame = 0;
 let crossTime = 0;
 
@@ -221,8 +221,18 @@ document.addEventListener('click', function(e) {
       phase++;
     } else if (phase == 1 && !slide)
       slide = true;
-    if (highlight != -1 && (relativeX >= canvas.width - cross.width / 2 && relativeY >= 0 && relativeX < canvas.width && relativeY < cross.height))
-      crossFrame = 1;
+    else if (phase == 2) {
+      if (highlight != -1 && (relativeX >= canvas.width - cross.width / 2 && relativeY >= 0 && relativeX < canvas.width && relativeY < cross.height))
+        crossFrame = 1;
+      else {
+        for (let i = 0; i < player.hand.length; i++) {
+          if ((relativeX >= i * 67 && relativeY >= 200 && relativeX < (i + 1) * 67 && relativeY < 200 + card.height / 7.5)) {
+            highlight = i;
+            break;
+          }
+        }
+      }
+    }
     return;
   } else if (menu) {
     menu = false;
