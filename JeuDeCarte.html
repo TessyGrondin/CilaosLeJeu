@@ -64,6 +64,8 @@ let opponent = {pt:0, hand:[], board:[]};
 let highlight = -1;
 let crossFrame = 0;
 let crossTime = 0;
+let choseFrame = 0;
+let choseTime = 0;
 
 for (let i = 0; i < 9; i++) {
   let a = Math.floor(Math.random() * 20);
@@ -78,6 +80,8 @@ let shadow = new Image();
 shadow.src = "shadow.png"
 let cross = new Image();
 cross.src = "cross.png"
+let chose = new Image();
+chose.src = "chose.png"
 // let backgroundImage = new Image();
 // backgroundImage.src = "background.png"
 
@@ -191,6 +195,7 @@ function loop() {
         if (highlight != -1) {
           context.drawImage(shadow, 0, 0, shadow.width, shadow.height, 0, 0, canvas.width, canvas.height);
           context.drawImage(cross, crossFrame * cross.width / 2, 0, cross.width / 2, cross.height, canvas.width - cross.width / 2, 0, cross.width / 2, cross.height);
+          context.drawImage(chose, choseFrame * chose.width / 2, 0, chose.width / 2, chose.height, canvas.width - chose.width / 2, canvas.height - chose.height, chose.width / 2, chose.height);
           drawCard(player.hand[highlight], canvas.width / 2 - ((card.width / 7) / 3) / 2, yPick, (card.width / 7) / 3, card.height / 3, 15);
         }
       }
@@ -224,6 +229,8 @@ document.addEventListener('click', function(e) {
     else if (phase == 2) {
       if (highlight != -1 && (relativeX >= canvas.width - cross.width / 2 && relativeY >= 0 && relativeX < canvas.width && relativeY < cross.height))
         crossFrame = 1;
+      if (highlight != -1 && (relativeX >= canvas.width - chose.width / 2 && relativeY >= canvas.height - chose.height && relativeX < canvas.width && relativeY < canvas.height))
+        choseFrame = 1;
       else {
         for (let i = 0; i < player.hand.length; i++) {
           if ((relativeX >= i * 67 && relativeY >= 200 && relativeX < (i + 1) * 67 && relativeY < 200 + card.height / 7.5)) {
@@ -264,8 +271,22 @@ function closeCloseUp() {
   crossTime++;
 }
 
+function selectCard() {
+  if (choseFrame == 0)
+    return;
+  if (choseTime > 0) {
+    highlight = -1;
+    choseFrame = 0;
+    choseTime = 0;
+    // playCard()
+    phase++;
+  }
+  choseTime++;
+}
+
 setInterval(slideToBottom, 1);
 setInterval(closeCloseUp, 50);
+setInterval(selectCard, 50);
 
 requestAnimationFrame(loop);
 </script>
