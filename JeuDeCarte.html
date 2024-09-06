@@ -221,6 +221,8 @@ document.addEventListener('click', function(e) {
       phase++;
     } else if (phase == 1 && !slide)
       slide = true;
+    if (highlight != -1 && (relativeX >= canvas.width - cross.width / 2 && relativeY >= 0 && relativeX < canvas.width && relativeY < cross.height))
+      crossFrame = 1;
     return;
   } else if (menu) {
     menu = false;
@@ -241,7 +243,19 @@ function slideToBottom() {
   }
 }
 
+function closeCloseUp() {
+  if (crossFrame == 0)
+    return;
+  if (crossTime > 0) {
+    highlight = -1;
+    crossFrame = 0;
+    crossTime = 0;
+  }
+  crossTime++;
+}
+
 setInterval(slideToBottom, 1);
+setInterval(closeCloseUp, 50);
 
 requestAnimationFrame(loop);
 </script>
