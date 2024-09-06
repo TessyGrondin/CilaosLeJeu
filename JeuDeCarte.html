@@ -32,6 +32,9 @@ let menu = false;
 let turn = 0;
 let phase = 0;//0 pioche, 1 main, 2 plateau
 
+let slide = false;
+let yPick = 375 / 2 - (896 / 3) / 2;
+
 let cards = [
   {type:0, decription:"", name:"Lentilles", pt:1, ability:0},
   {type:0, decription:"", name:"Vin de Cilaos", pt:2, ability:-1},
@@ -51,7 +54,7 @@ let cards = [
   {type:3, decription:"", name:"Le VTT", pt:1, ability:3},
   {type:4, decription:"", name:"Tsilaos", pt:2, ability:-1},
   {type:4, decription:"", name:"Les premiers\nhabitants", pt:3, ability:-1},
-  {type:4, decription:"", name:"Le Porteur de Vie", pt:4, ability:-1},
+  {type:4, decription:"", name:"Le Porteur\nde Vie", pt:4, ability:-1},
   {type:4, decription:"", name:"Tsilaosa", pt:5, ability:-1}
 ];
 
@@ -175,7 +178,7 @@ function loop() {
       if (phase == 0)
         context.drawImage(card, 0, 0, card.width / 7, card.height, canvas.width / 2 - ((card.width / 7) / 3) / 2, canvas.height / 2 - ((card.height) / 3) / 2, (card.width / 7) / 3, (card.height) / 3);
       if (phase == 1)
-        drawCard(player.hand[player.hand.length - 1], canvas.width / 2 - ((card.width / 7) / 3) / 2, canvas.height / 2 - ((card.height) / 3) / 2, (card.width / 7) / 3, (card.height) / 3);
+        drawCard(player.hand[player.hand.length - 1], canvas.width / 2 - ((card.width / 7) / 3) / 2, yPick, (card.width / 7) / 3, card.height / 3);
   // } else {
   //   context.textAlign = "center";
   //   context.font = "40px Arial";
@@ -201,7 +204,8 @@ document.addEventListener('click', function(e) {
       pickCard(player);
       pickCard(opponent);
       phase++;
-    }
+    } else if (phase == 1 && !slide)
+      slide = true;
     return;
   } else if (menu) {
     menu = false;
@@ -211,6 +215,18 @@ document.addEventListener('click', function(e) {
     menu = true;
   }
  });
+
+function slideToBottom() {
+  if (slide)
+    yPick++;
+  if (yPick >= canvas.height) {
+    yPick = canvas.height / 2 - ((card.height) / 3) / 2;
+    phase++;
+    slide = false;
+  }
+}
+
+setInterval(slideToBottom, 1);
 
 requestAnimationFrame(loop);
 </script>
