@@ -165,7 +165,12 @@ function playCard(j, op, c) {
     else
       nullifie(op);
   }
-  j.hand.pop(c);
+  let newhand = [];
+  for (let i = 0; i < j.hand.length; i++) {
+    if (i != c)
+      newhand.push({type:j.hand[i].type, decription:j.hand[i].decription, name:j.hand[i].name, pt:j.hand[i].pt, ability:j.hand[i].ability})
+  }
+  j.hand = newhand;
 }
 
 function greed(j) {
