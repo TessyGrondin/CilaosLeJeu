@@ -31,6 +31,7 @@ let menu = false;
 
 let turn = 0;
 let phase = 0;
+let handMode = 1;
 
 let slide = false;
 let yPick = 375 / 2 - (896 / 3) / 2;
@@ -66,6 +67,8 @@ let crossFrame = 0;
 let crossTime = 0;
 let choseFrame = 0;
 let choseTime = 0;
+let buttonFrame = 0;
+let buttonTime = 0;
 
 for (let i = 0; i < 9; i++) {
   let a = Math.floor(Math.random() * 20);
@@ -82,6 +85,8 @@ let cross = new Image();
 cross.src = "cross.png"
 let chose = new Image();
 chose.src = "chose.png"
+let buttonHandPhase = new Image();
+buttonHandPhase.src = "buttonHandPhase.png"
 // let backgroundImage = new Image();
 // backgroundImage.src = "background.png"
 
@@ -188,15 +193,29 @@ function loop() {
         drawCard(player.hand[player.hand.length - 1], canvas.width / 2 - ((card.width / 7) / 3) / 2, yPick, (card.width / 7) / 3, card.height / 3, 15);
       if (phase == 2) {
         let cx = 0;
-        for (let i = 0; i < player.hand.length; i++) {
-          drawCard(player.hand[i], cx, 200, canvas.width /10, card.height / 7.5, 7)
-          cx += canvas.width / 10;
-        }
-        if (highlight != -1) {
-          context.drawImage(shadow, 0, 0, shadow.width, shadow.height, 0, 0, canvas.width, canvas.height);
-          context.drawImage(cross, crossFrame * cross.width / 2, 0, cross.width / 2, cross.height, canvas.width - cross.width / 2, 0, cross.width / 2, cross.height);
-          context.drawImage(chose, choseFrame * chose.width / 2, 0, chose.width / 2, chose.height, canvas.width - chose.width / 2, canvas.height - chose.height, chose.width / 2, chose.height);
-          drawCard(player.hand[highlight], canvas.width / 2 - ((card.width / 7) / 3) / 2, yPick, (card.width / 7) / 3, card.height / 3, 15);
+        if (handMode == 0) {
+          for (let i = 0; i < player.hand.length; i++) {
+            drawCard(player.hand[i], cx, 150, canvas.width /10, card.height / 7.5, 7)
+            cx += canvas.width / 10;
+          }
+          if (highlight != -1) {
+            context.drawImage(shadow, 0, 0, shadow.width, shadow.height, 0, 0, canvas.width, canvas.height);
+            context.drawImage(cross, crossFrame * cross.width / 2, 0, cross.width / 2, cross.height, canvas.width - cross.width / 2, 0, cross.width / 2, cross.height);
+            context.drawImage(chose, choseFrame * chose.width / 2, 0, chose.width / 2, chose.height, canvas.width - chose.width / 2, canvas.height - chose.height, chose.width / 2, chose.height);
+            drawCard(player.hand[highlight], canvas.width / 2 - ((card.width / 7) / 3) / 2, yPick, (card.width / 7) / 3, card.height / 3, 15);
+          } else
+            context.drawImage(buttonHandPhase, buttonFrame * buttonHandPhase.width / 4 + handMode * buttonHandPhase.width / 2, 0, buttonHandPhase.width / 4, buttonHandPhase.height, canvas.width - (buttonHandPhase.width / 4 / 2), canvas.height - (buttonHandPhase.height / 2), buttonHandPhase.width / 4 / 2, buttonHandPhase.height / 2);
+        } else {
+          for (let i = 0; i < player.board.length; i++) {
+            drawCard(player.board[i], cx, 200, canvas.width /10 * 1.5, card.height / 7.5 * 1.5, 10)
+            cx += canvas.width / 10 * 1.5;
+          }
+          cx = canvas.width - canvas.width / 10 * 1.5;
+          for (let i = 0; i < opponent.board.length; i++) {
+            drawCard(opponent.board[i], cx, 0, canvas.width /10 * 1.5, card.height / 7.5 * 1.5, 10)
+            cx -= canvas.width / 10 * 1.5;
+          }
+          context.drawImage(buttonHandPhase, buttonFrame * buttonHandPhase.width / 4 + handMode * buttonHandPhase.width / 2, 0, buttonHandPhase.width / 4, buttonHandPhase.height, canvas.width - (buttonHandPhase.width / 4 / 2), canvas.height - (buttonHandPhase.height / 2), buttonHandPhase.width / 4 / 2, buttonHandPhase.height / 2);
         }
       }
   // } else {
@@ -231,9 +250,11 @@ document.addEventListener('click', function(e) {
         crossFrame = 1;
       if (highlight != -1 && (relativeX >= canvas.width - chose.width / 2 && relativeY >= canvas.height - chose.height && relativeX < canvas.width && relativeY < canvas.height))
         choseFrame = 1;
+      if (relativeX >= canvas.width - (buttonHandPhase.width / 4 / 2) && relativeY >= canvas.height - (buttonHandPhase.height / 2) && relativeX < canvas.width && relativeY < canvas.height)
+        buttonFrame = 1;
       else {
         for (let i = 0; i < player.hand.length; i++) {
-          if ((relativeX >= i * 67 && relativeY >= 200 && relativeX < (i + 1) * 67 && relativeY < 200 + card.height / 7.5)) {
+          if ((relativeX >= i * 67 && relativeY >= 150 && relativeX < (i + 1) * 67 && relativeY < 150 + card.height / 7.5)) {
             highlight = i;
             break;
           }
@@ -275,18 +296,32 @@ function selectCard() {
   if (choseFrame == 0)
     return;
   if (choseTime > 0) {
+    playCard(player, opponent, highlight);
+    let i = greed(opponent);
+    playCard(opponent, player, i);
     highlight = -1;
     choseFrame = 0;
     choseTime = 0;
-    // playCard()
-    phase++;
+    // phase++;
   }
   choseTime++;
+}
+
+function switchMode() {
+  if (buttonFrame == 0)
+    return;
+  if (buttonTime > 0) {
+    handMode = (handMode == 0) ? 1 : 0;
+    buttonFrame = 0;
+    buttonTime = 0;
+  }
+  buttonTime++;
 }
 
 setInterval(slideToBottom, 1);
 setInterval(closeCloseUp, 50);
 setInterval(selectCard, 50);
+setInterval(switchMode, 50);
 
 requestAnimationFrame(loop);
 </script>
