@@ -87,6 +87,8 @@ let chose = new Image();
 chose.src = "chose.png"
 let buttonHandPhase = new Image();
 buttonHandPhase.src = "buttonHandPhase.png"
+let draw = new Image();
+draw.src = "draw.png"
 // let backgroundImage = new Image();
 // backgroundImage.src = "background.png"
 
@@ -185,7 +187,7 @@ function loop() {
   //   context.fillText("Tap to play", canvas.width / 2, canvas.height / 2);
   //} else if (!end) {
       // context.drawImage(image, tile.valueX * imW + frameSize * currentFrame, tile.valueY * imH, imW, imH, tile.x, tile.y, selectionW, selectionH);
-      if (turn == 5)
+      if (turn > 5)
         end = true;
       if (phase == 0)
         context.drawImage(card, 0, 0, card.width / 7, card.height, canvas.width / 2 - ((card.width / 7) / 3) / 2, canvas.height / 2 - ((card.height) / 3) / 2, (card.width / 7) / 3, (card.height) / 3);
@@ -217,6 +219,19 @@ function loop() {
           }
           context.drawImage(buttonHandPhase, buttonFrame * buttonHandPhase.width / 4 + handMode * buttonHandPhase.width / 2, 0, buttonHandPhase.width / 4, buttonHandPhase.height, canvas.width - (buttonHandPhase.width / 4 / 2), canvas.height - (buttonHandPhase.height / 2), buttonHandPhase.width / 4 / 2, buttonHandPhase.height / 2);
         }
+      }
+      else if (phase == 3) {
+        let cx = 0;
+        for (let i = 0; i < player.board.length; i++) {
+          drawCard(player.board[i], cx, 200, canvas.width /10 * 1.5, card.height / 7.5 * 1.5, 10)
+          cx += canvas.width / 10 * 1.5;
+        }
+        cx = canvas.width - canvas.width / 10 * 1.5;
+        for (let i = 0; i < opponent.board.length; i++) {
+          drawCard(opponent.board[i], cx, 0, canvas.width /10 * 1.5, card.height / 7.5 * 1.5, 10)
+          cx -= canvas.width / 10 * 1.5;
+        }
+        context.drawImage(draw, buttonFrame * draw.width / 2, 0, draw.width / 2, draw.height, canvas.width - (draw.width / 2 / 2), canvas.height - (draw.height / 2), draw.width / 2 / 2, draw.height / 2);
       }
   // } else {
   //   context.textAlign = "center";
@@ -260,7 +275,8 @@ document.addEventListener('click', function(e) {
           }
         }
       }
-    }
+    } else if (relativeX >= canvas.width - (draw.width / 2 / 2) && relativeY >= canvas.height - (draw.height / 2) && relativeX < canvas.width && relativeY < canvas.height)
+      buttonFrame = 1;
     return;
   } else if (menu) {
     menu = false;
@@ -302,13 +318,14 @@ function selectCard() {
     highlight = -1;
     choseFrame = 0;
     choseTime = 0;
-    // phase++;
+    handMode = 0;
+    phase++;
   }
   choseTime++;
 }
 
 function switchMode() {
-  if (buttonFrame == 0)
+  if (buttonFrame == 0 || phase != 2)
     return;
   if (buttonTime > 0) {
     handMode = (handMode == 0) ? 1 : 0;
@@ -318,10 +335,23 @@ function switchMode() {
   buttonTime++;
 }
 
+function nextTurn() {
+  if (buttonFrame == 0 || phase != 3)
+    return;
+  if (buttonTime > 0) {
+    buttonFrame = 0;
+    buttonTime = 0;
+    turn++;
+    phase = 0;
+  }
+  buttonTime++;
+}
+
 setInterval(slideToBottom, 1);
 setInterval(closeCloseUp, 50);
 setInterval(selectCard, 50);
 setInterval(switchMode, 50);
+setInterval(nextTurn, 50);
 
 requestAnimationFrame(loop);
 </script>
