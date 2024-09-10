@@ -1,0 +1,36 @@
+choses importantes :
+
+produit {
+    lentille Réputées sur toute l'île, elles atirent même les gastronomes jusqu'ici !
+    vin L'une des fièrtés du village qui à failli disparaître. Aujourd'hui un vin unique qui en attire plus d'un !
+    eau de Cilaos Une eau gazeuse venant des source de Cilaos. Elle est bourrée de bon minéreaux.
+    Jours de Cilaos Des broderies uniques et traditionnelles. La Maison de la Broderie les paufine depuis 1900.
+}
+
+lieu {
+    l'église notre dame des neiges
+    therme
+    Mare à joncs
+    musée
+}
+
+culture générale {
+    route (plus de virage au monde ! 400)
+    un air pur
+    départ du piton des neiges
+    étape importante du grand raid
+}
+
+activitées {
+    canyoning
+    escalade
+    randonnées
+    vtt
+}
+
+histoire {
+    Tsilaos le marron
+    les marrons premiers habitants
+    les chaises à porteurs avant la route, le porteur de vie
+    l'héritage malgache (tsilaosa "lieu que l'on ne quitte pas" En référence à cette origine supposée, la devise de la commune est « Cilaos, on y revient toujours ».)
+}
