@@ -41,10 +41,10 @@ let cards = [
   {type:0, decription:"L'une des fièrtés du village\nqui à failli disparaître.\nAujourd'hui un vin unique\nqui en attire plus d'un !", name:"Vin de Cilaos", pt:2, ability:-1},
   {type:0, decription:"Une eau gazeuse venant\ndes source de Cilaos.\nElle est bourrée de bon\nminéreaux.", name:"Eau de Cilaos", pt:3, ability:-1},
   {type:0, decription:"Des broderies uniques et\ntraditionnelles. La Maison\nde la Broderie les paufine\ndepuis 1900.", name:"Jours de Cilaos", pt:4, ability:-1},
-  {type:1, decription:"placeholder", name:"Notre Dame\ndes Neiges", pt:5, ability:-1},
-  {type:1, decription:"Ajoute 3 à la valeur de la\ndernière carte posée.", name:"Thermes", pt:1, ability:1},
-  {type:1, decription:"placeholder", name:"Mare à Jonc", pt:2, ability:-1},
-  {type:1, decription:"placeholder", name:"Musée", pt:3, ability:-1},
+  {type:1, decription:"L'église en béton armé de\nCilaos. Classée monument\nhistorique, elle à été\nconstruite durant la\nSeconde Guerre Mondiale.", name:"Notre Dame\ndes Neiges", pt:5, ability:-1},
+  {type:1, decription:"La dernière source\nthermale de l'île. Très\nprisée des randonneurs\npour ses soins vivifiants.\n \nAjoute 3 à la valeur de la\ndernière carte posée.", name:"Thermes", pt:1, ability:1},
+  {type:1, decription:"Petit coin de nature à\nquelques pas du centre\nville. Parfait pour une\npromenade le long d'une\neau claire et pleine de vie.", name:"Mare à Jonc", pt:2, ability:-1},
+  {type:1, decription:"Autant un musée qu'une\ngalerie d'art, ce lieu plonge\nses visiteurs dans la\nRéunion d'autrefois.", name:"Musée\nZafer Lontan", pt:3, ability:-1},
   {type:2, decription:"placeholder", name:"Route des 400\nvirages", pt:4, ability:-1},
   {type:2, decription:"placeholder", name:"Un air pur", pt:5, ability:-1},
   {type:2, decription:"Retire 4 points de\ndécouverte à l'adversaire.", name:"Départ du Piton\ndes Neiges", pt:1, ability:2},
@@ -77,7 +77,7 @@ for (let i = 0; i < 9; i++) {
   opponent.hand.push({type:cards[b].type, decription:cards[b].decription, name:cards[b].name, pt:cards[b].pt, ability:cards[b].ability});
 }
 
-player.hand[0] = cards[3];
+player.hand[0] = cards[7];
 
 let card = new Image();
 card.src = "card.png"
