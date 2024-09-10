@@ -49,10 +49,10 @@ let cards = [
   {type:2, decription:"Aux côtés des autres\ncirques, Cilaos est reconnu\ncomme un lieu authentique\noù se ressourcer, loin de\nl'air pollué des grandes\nvilles.", name:"Un air pur", pt:5, ability:-1},
   {type:2, decription:"Comme de nombreuses\nrandonnées iconiques de\nla Réunion, le départ du\nPiton des Neiges se trouve\naux alentours du village.\n \nRetire 4 points de\ndécouverte à l'adversaire.", name:"Départ du Piton\ndes Neiges", pt:1, ability:2},
   {type:2, decription:"Une des étapes les plus\nimportantes de la célèbre\ncompétition passe\ndirectement dans le\nvillage !", name:"Le Grand Raid", pt:2, ability:-1},
-  {type:3, decription:"placeholder", name:"Le canyoning", pt:3, ability:-1},
-  {type:3, decription:"placeholder", name:"L'escalade", pt:4, ability:-1},
-  {type:3, decription:"placeholder", name:"La randonnée", pt:5, ability:-1},
-  {type:3, decription:"Annule le bonus de\ncatégorie de la dernière\ncarte posée par\nl'adeversaire.", name:"Le VTT", pt:1, ability:3},
+  {type:3, decription:"Rendez-vous au Canyon\nde Bras Rouge pour des\nsensations intenses !", name:"Le canyoning", pt:3, ability:-1},
+  {type:3, decription:"Débutant ou vétérans\ngrimpent entre 10 et 120\nmètres sur la falaise\nFleur Jaune.", name:"L'escalade", pt:4, ability:-1},
+  {type:3, decription:"Cilaos comprend près\nd'une quarentaine de\ncircuits pour tout les\nniveaux", name:"La randonnée", pt:5, ability:-1},
+  {type:3, decription:"9 circuits de niveaux variés\npermettent de parcourir le\ncirque à vélo. Découvrez la\nbeauté de la montagne !\n \nAnnule le bonus de\ncatégorie de la dernière\ncarte posée par\nl'adversaire.", name:"Le VTT", pt:1, ability:3},
   {type:4, decription:"placeholder", name:"Tsilaos", pt:2, ability:-1},
   {type:4, decription:"placeholder", name:"Les premiers\nhabitants", pt:3, ability:-1},
   {type:4, decription:"placeholder", name:"Le Porteur\nde Vie", pt:4, ability:-1},
@@ -77,7 +77,7 @@ for (let i = 0; i < 9; i++) {
   opponent.hand.push({type:cards[b].type, decription:cards[b].decription, name:cards[b].name, pt:cards[b].pt, ability:cards[b].ability});
 }
 
-player.hand[0] = cards[11];
+player.hand[0] = cards[15];
 
 let card = new Image();
 card.src = "card.png"
