@@ -37,10 +37,10 @@ let slide = false;
 let yPick = 375 / 2 - (896 / 3) / 2;
 
 let cards = [
-  {type:0, decription:"Si 2 cartes de cette\ncatégorie ont été posées,\ndouble les points de\ndécouverte.", name:"Lentilles", pt:1, ability:0},
-  {type:0, decription:"placeholder", name:"Vin de Cilaos", pt:2, ability:-1},
-  {type:0, decription:"placeholder", name:"Eau de Cilaos", pt:3, ability:-1},
-  {type:0, decription:"placeholder", name:"Jours de Cilaos", pt:4, ability:-1},
+  {type:0, decription:"Réputées sur toute l'île,\nelles atirent même les\ngastronomes jusqu'ici !\n \nSi 2 cartes de cette\ncatégorie ont été posées,\ndouble les points de\ndécouverte.", name:"Lentilles", pt:1, ability:0},
+  {type:0, decription:"L'une des fièrtés du village\nqui à failli disparaître.\nAujourd'hui un vin unique\nqui en attire plus d'un !", name:"Vin de Cilaos", pt:2, ability:-1},
+  {type:0, decription:"Une eau gazeuse venant\ndes source de Cilaos.\nElle est bourrée de bon\nminéreaux.", name:"Eau de Cilaos", pt:3, ability:-1},
+  {type:0, decription:"Des broderies uniques et\ntraditionnelles. La Maison\nde la Broderie les paufine\ndepuis 1900.", name:"Jours de Cilaos", pt:4, ability:-1},
   {type:1, decription:"placeholder", name:"Notre Dame\ndes Neiges", pt:5, ability:-1},
   {type:1, decription:"Ajoute 3 à la valeur de la\ndernière carte posée.", name:"Thermes", pt:1, ability:1},
   {type:1, decription:"placeholder", name:"Mare à Jonc", pt:2, ability:-1},
@@ -76,6 +76,8 @@ for (let i = 0; i < 9; i++) {
   player.hand.push({type:cards[a].type, decription:cards[a].decription, name:cards[a].name, pt:cards[a].pt, ability:cards[a].ability});
   opponent.hand.push({type:cards[b].type, decription:cards[b].decription, name:cards[b].name, pt:cards[b].pt, ability:cards[b].ability});
 }
+
+player.hand[0] = cards[3];
 
 let card = new Image();
 card.src = "card.png"
