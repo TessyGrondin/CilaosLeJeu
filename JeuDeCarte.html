@@ -37,26 +37,26 @@ let slide = false;
 let yPick = 375 / 2 - (896 / 3) / 2;
 
 let cards = [
-  {type:0, decription:"", name:"Lentilles", pt:1, ability:0},
-  {type:0, decription:"", name:"Vin de Cilaos", pt:2, ability:-1},
-  {type:0, decription:"", name:"Eau de Cilaos", pt:3, ability:-1},
-  {type:0, decription:"", name:"Jours de Cilaos", pt:4, ability:-1},
-  {type:1, decription:"", name:"Notre Dame\ndes Neiges", pt:5, ability:-1},
-  {type:1, decription:"", name:"Thermes", pt:1, ability:1},
-  {type:1, decription:"", name:"Mare à Jonc", pt:2, ability:-1},
-  {type:1, decription:"", name:"Musée", pt:3, ability:-1},
-  {type:2, decription:"", name:"Route des 400\nvirages", pt:4, ability:-1},
-  {type:2, decription:"", name:"Un air pur", pt:5, ability:-1},
-  {type:2, decription:"", name:"Départ du Piton\ndes Neiges", pt:1, ability:2},
-  {type:2, decription:"", name:"Le Grand Raid", pt:2, ability:-1},
-  {type:3, decription:"", name:"Le canyoning", pt:3, ability:-1},
-  {type:3, decription:"", name:"L'escalade", pt:4, ability:-1},
-  {type:3, decription:"", name:"La randonnée", pt:5, ability:-1},
-  {type:3, decription:"", name:"Le VTT", pt:1, ability:3},
-  {type:4, decription:"", name:"Tsilaos", pt:2, ability:-1},
-  {type:4, decription:"", name:"Les premiers\nhabitants", pt:3, ability:-1},
-  {type:4, decription:"", name:"Le Porteur\nde Vie", pt:4, ability:-1},
-  {type:4, decription:"", name:"Tsilaosa", pt:5, ability:-1}
+  {type:0, decription:"Si 2 cartes de cette\ncatégorie ont été posées,\ndouble les points de\ndécouverte.", name:"Lentilles", pt:1, ability:0},
+  {type:0, decription:"placeholder", name:"Vin de Cilaos", pt:2, ability:-1},
+  {type:0, decription:"placeholder", name:"Eau de Cilaos", pt:3, ability:-1},
+  {type:0, decription:"placeholder", name:"Jours de Cilaos", pt:4, ability:-1},
+  {type:1, decription:"placeholder", name:"Notre Dame\ndes Neiges", pt:5, ability:-1},
+  {type:1, decription:"Ajoute 3 à la valeur de la\ndernière carte posée.", name:"Thermes", pt:1, ability:1},
+  {type:1, decription:"placeholder", name:"Mare à Jonc", pt:2, ability:-1},
+  {type:1, decription:"placeholder", name:"Musée", pt:3, ability:-1},
+  {type:2, decription:"placeholder", name:"Route des 400\nvirages", pt:4, ability:-1},
+  {type:2, decription:"placeholder", name:"Un air pur", pt:5, ability:-1},
+  {type:2, decription:"Retire 4 points de\ndécouverte à l'adversaire.", name:"Départ du Piton\ndes Neiges", pt:1, ability:2},
+  {type:2, decription:"placeholder", name:"Le Grand Raid", pt:2, ability:-1},
+  {type:3, decription:"placeholder", name:"Le canyoning", pt:3, ability:-1},
+  {type:3, decription:"placeholder", name:"L'escalade", pt:4, ability:-1},
+  {type:3, decription:"placeholder", name:"La randonnée", pt:5, ability:-1},
+  {type:3, decription:"Annule le bonus de\ncatégorie de la dernière\ncarte posée par\nl'adeversaire.", name:"Le VTT", pt:1, ability:3},
+  {type:4, decription:"placeholder", name:"Tsilaos", pt:2, ability:-1},
+  {type:4, decription:"placeholder", name:"Les premiers\nhabitants", pt:3, ability:-1},
+  {type:4, decription:"placeholder", name:"Le Porteur\nde Vie", pt:4, ability:-1},
+  {type:4, decription:"placeholder", name:"Tsilaosa", pt:5, ability:-1}
 ];
 
 let player = {pt:0, hand:[], board:[]};
@@ -111,7 +111,10 @@ function drawCard(c, posx, posy, scalex, scaley, tsize)
   context.fillStyle = 'white';
   context.textAlign = "left";
   context.fillText(c.pt, posx + scalex * 0.9, posy + scaley * 0.07);
+  context.font = (tsize - 2) + "px Arial";
   context.fillStyle = 'black';
+  drawSplit(c.decription, posx + scalex * 0.05, posy + scaley * 0.55, tsize - 2);
+  context.font = tsize + "px Arial";
   context.textAlign = "center";
   drawSplit(c.name, posx + scalex * 0.5, posy + scaley * 0.05, tsize);
 }
@@ -128,7 +131,7 @@ function doublePoint(j, c) {
     if (bc.type == j.hand[c].type)
       nb++;
   });
-  if (nb >= 3)
+  if (nb >= 2)
     j.pt *= 2;
 }
 
