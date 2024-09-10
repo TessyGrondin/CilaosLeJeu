@@ -89,9 +89,13 @@ let buttonHandPhase = new Image();
 buttonHandPhase.src = "buttonHandPhase.png"
 let draw = new Image();
 draw.src = "draw.png"
+let score_ball = new Image();
+score_ball.src = "score_ball.png"
 // let backgroundImage = new Image();
 // backgroundImage.src = "background.png"
 
+context.font = "30px Arial";
+context.fillStyle = 'white';
 
 function drawSplit(str, posx, posy, height) {
   let toWrite = str.split('\n');
@@ -222,7 +226,13 @@ function loop() {
             drawCard(opponent.board[i], cx, 0, canvas.width /10 * 1.5, card.height / 7.5 * 1.5, 10)
             cx -= canvas.width / 10 * 1.5;
           }
+          context.font = "30px Arial";
+          context.fillStyle = 'white';
           context.drawImage(buttonHandPhase, buttonFrame * buttonHandPhase.width / 4 + handMode * buttonHandPhase.width / 2, 0, buttonHandPhase.width / 4, buttonHandPhase.height, canvas.width - (buttonHandPhase.width / 4 / 2), canvas.height - (buttonHandPhase.height / 2), buttonHandPhase.width / 4 / 2, buttonHandPhase.height / 2);
+          context.drawImage(score_ball, 0, 0, score_ball.width, score_ball.height, canvas.width - score_ball.width, canvas.height - (score_ball.height * 2 + 10), score_ball.width, score_ball.height);
+          context.fillText(player.pt, canvas.width - score_ball.width / 2, canvas.height - ((score_ball.height * 2)) + score_ball.height / 2);
+          context.drawImage(score_ball, 0, 0, score_ball.width, score_ball.height, 0, 0, score_ball.width, score_ball.height);
+          context.fillText(opponent.pt, score_ball.width / 2, score_ball.height * 0.65);
         }
       }
       else if (phase == 3) {
@@ -236,7 +246,13 @@ function loop() {
           drawCard(opponent.board[i], cx, 0, canvas.width /10 * 1.5, card.height / 7.5 * 1.5, 10)
           cx -= canvas.width / 10 * 1.5;
         }
+        context.font = "30px Arial";
+        context.fillStyle = 'white';
         context.drawImage(draw, buttonFrame * draw.width / 2, 0, draw.width / 2, draw.height, canvas.width - (draw.width / 2 / 2), canvas.height - (draw.height / 2), draw.width / 2 / 2, draw.height / 2);
+        context.drawImage(score_ball, 0, 0, score_ball.width, score_ball.height, canvas.width - score_ball.width, canvas.height - (score_ball.height * 2 + 10), score_ball.width, score_ball.height);
+        context.fillText(player.pt, canvas.width - score_ball.width / 2, canvas.height - ((score_ball.height * 2)) + score_ball.height / 2);
+        context.drawImage(score_ball, 0, 0, score_ball.width, score_ball.height, 0, 0, score_ball.width, score_ball.height);
+        context.fillText(opponent.pt, score_ball.width / 2, score_ball.height * 0.65);
       }
   // } else {
   //   context.textAlign = "center";
@@ -348,6 +364,7 @@ function nextTurn() {
     buttonTime = 0;
     turn++;
     phase = 0;
+    handMode = 1;
   }
   buttonTime++;
 }
