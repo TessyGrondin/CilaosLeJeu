@@ -53,10 +53,10 @@ let cards = [
   {type:3, decription:"Débutant ou vétérans\ngrimpent entre 10 et 120\nmètres sur la falaise\nFleur Jaune.", name:"L'escalade", pt:4, ability:-1},
   {type:3, decription:"Cilaos comprend près\nd'une quarentaine de\ncircuits pour tout les\nniveaux", name:"La randonnée", pt:5, ability:-1},
   {type:3, decription:"9 circuits de niveaux variés\npermettent de parcourir le\ncirque à vélo. Découvrez la\nbeauté de la montagne !\n \nAnnule le bonus de\ncatégorie de la dernière\ncarte posée par\nl'adversaire.", name:"Le VTT", pt:1, ability:3},
-  {type:4, decription:"placeholder", name:"Tsilaos", pt:2, ability:-1},
-  {type:4, decription:"placeholder", name:"Les premiers\nhabitants", pt:3, ability:-1},
-  {type:4, decription:"placeholder", name:"Le Porteur\nde Vie", pt:4, ability:-1},
-  {type:4, decription:"placeholder", name:"Tsilaosa", pt:5, ability:-1}
+  {type:4, decription:"Marron qui serait venu se\nréfugier dans le cirque.\nCertaines sources le\nconsidèrent comme celui\nqui à donné son nom au\nlieu.", name:"Tsilaos", pt:2, ability:-1},
+  {type:4, decription:"Le village à été formé\ndurant la période de\nl'esclavage. Il à été fondé\npar des esclaves en fuite,\ncommunément appelés\n'Marrons'.", name:"Les premiers\nhabitants", pt:3, ability:-1},
+  {type:4, decription:"Depuis son établissement\nen tant que village et ce\njusqu'en 1932, les plus\nriches venaient à Cilaos en\nchaise à porteurs ! Ce\nmonument rend hommage\nà ces courageux porteurs.", name:"Le Porteur\nde Vie", pt:4, ability:-1},
+  {type:4, decription:"'lieu que l'on ne quitte pas'\nen malgache. Certains\ndisent que c'est de là que\nvient le nom ainsi que la\ndevise :\n'Cilaos, on y revient\ntoujours'.", name:"Tsilaosa", pt:5, ability:-1}
 ];
 
 let player = {pt:0, hand:[], board:[]};
@@ -76,8 +76,6 @@ for (let i = 0; i < 9; i++) {
   player.hand.push({type:cards[a].type, decription:cards[a].decription, name:cards[a].name, pt:cards[a].pt, ability:cards[a].ability});
   opponent.hand.push({type:cards[b].type, decription:cards[b].decription, name:cards[b].name, pt:cards[b].pt, ability:cards[b].ability});
 }
-
-player.hand[0] = cards[15];
 
 let card = new Image();
 card.src = "card.png"
