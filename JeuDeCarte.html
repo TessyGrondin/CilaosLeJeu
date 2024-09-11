@@ -98,7 +98,6 @@ score_ball.src = "score_ball.png"
 let tuto = new Image();
 tuto.src = "tuto.png"
 let tutoFrame = 0;
-let tutoActiv = true;
 let tutoPhase = 0;
 let tutoA = [true, true, true, true];
 let tutoMessage = [
@@ -110,6 +109,21 @@ let tutoMessage = [
 
 context.font = "30px Arial";
 context.fillStyle = 'black';
+
+function initialise() {
+  end = false;
+  menu = true;
+  tutoA = [true, true, true, true];
+  turn = 0;
+  player = {pt:0, hand:[], board:[]};
+  opponent = {pt:0, hand:[], board:[]};
+  for (let i = 0; i < 9; i++) {
+    let a = Math.floor(Math.random() * 20);
+    let b = Math.floor(Math.random() * 20);
+    player.hand.push({type:cards[a].type, decription:cards[a].decription, name:cards[a].name, pt:cards[a].pt, ability:cards[a].ability});
+    opponent.hand.push({type:cards[b].type, decription:cards[b].decription, name:cards[b].name, pt:cards[b].pt, ability:cards[b].ability});
+  }
+}
 
 function drawLine(str, posx, posy) {
   let toWrite = str.split(';');
@@ -338,8 +352,10 @@ document.addEventListener('click', function(e) {
     else if (phase == 2) {
       if (highlight != -1 && (relativeX >= canvas.width - cross.width / 2 && relativeY >= 0 && relativeX < canvas.width && relativeY < cross.height))
         crossFrame = 1;
-      if (highlight != -1 && (relativeX >= canvas.width - chose.width / 2 && relativeY >= canvas.height - chose.height && relativeX < canvas.width && relativeY < canvas.height))
+      if (highlight != -1 && (relativeX >= canvas.width - chose.width / 2 && relativeY >= canvas.height - chose.height && relativeX < canvas.width && relativeY < canvas.height)) {
         choseFrame = 1;
+        return;
+      }
       if (relativeX >= canvas.width - (buttonHandPhase.width / 4 / 2) && relativeY >= canvas.height - (buttonHandPhase.height / 2) && relativeX < canvas.width && relativeY < canvas.height)
         buttonFrame = 1;
       else {
@@ -357,10 +373,7 @@ document.addEventListener('click', function(e) {
     menu = false;
     return;
   } else {
-    end = false;
-    menu = true;
-    tutoA = [true, true, true, true];
-    turn = 0;
+    initialise();
   }
  });
 
