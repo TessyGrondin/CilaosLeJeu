@@ -100,6 +100,7 @@ tuto.src = "tuto.png"
 let tutoFrame = 0;
 let tutoActiv = true;
 let tutoPhase = 0;
+let tutoA = [true, true, true, true];
 let tutoMessage = [
 "Tout d'abbord, pioche une carte.\nElle sera ajoutée à ta ;main.",
 "Te voici sur le ;plateau;, tu peux y\nconsulter les cartes déjà jouées\nainsi que ton score.",
@@ -292,7 +293,7 @@ function loop() {
         context.drawImage(score_ball, 0, 0, score_ball.width, score_ball.height, 0, 0, score_ball.width, score_ball.height);
         context.fillText(opponent.pt, score_ball.width / 2, score_ball.height * 0.65);
       }
-      if (tutoActiv) {
+      if (tutoA[tutoPhase]) {
         context.drawImage(shadow, 0, 0, shadow.width, shadow.height, 0, 0, canvas.width, canvas.height);
         context.fillStyle = "white";
         context.fillRect(60, 40, canvas.width * 0.75, canvas.height * 0.75);
@@ -324,8 +325,8 @@ document.addEventListener('click', function(e) {
   let relativeY = e.y - canvas.offsetTop;
 
   if (!end && !menu) {
-    if (tutoActiv) {
-      tutoActiv = false;
+    if (tutoA[tutoPhase]) {
+      tutoA[tutoPhase] = false;
       return;
     }
     if (phase == 0) {
@@ -351,8 +352,6 @@ document.addEventListener('click', function(e) {
       }
     } else if (relativeX >= canvas.width - (draw.width / 2 / 2) && relativeY >= canvas.height - (draw.height / 2) && relativeX < canvas.width && relativeY < canvas.height)
       buttonFrame = 1;
-    if (turn == 0)
-      tutoActiv = true;
     return;
   } else if (menu) {
     menu = false;
@@ -360,6 +359,7 @@ document.addEventListener('click', function(e) {
   } else {
     end = false;
     menu = true;
+    tutoA = [true, true, true, true];
     turn = 0;
   }
  });
