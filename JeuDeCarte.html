@@ -128,6 +128,7 @@ function initialise() {
 }
 
 function drawLine(str, posx, posy) {
+  str = str.toString();
   let toWrite = str.split(';');
   let color = "blue";
   let px = posx;
@@ -143,6 +144,7 @@ function drawLine(str, posx, posy) {
 }
 
 function drawSplit(str, posx, posy, height) {
+  str = str.toString();
   let toWrite = str.split('\n');
   for (let i = 0; i < toWrite.length; i++)
     drawLine(toWrite[i], posx, posy + i * height);
